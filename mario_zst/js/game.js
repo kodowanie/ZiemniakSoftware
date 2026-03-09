@@ -15,6 +15,8 @@ var ctx = canvas.getContext('2d');
 var updateables = [];
 var fireballs = [];
 var player = new Mario.Player([0,0]);
+var testWow = false;
+var levelComplete = false;
 
 //we might have to get the size and calculate the scaling
 //but this method should let us make it however big.
@@ -132,6 +134,18 @@ function handleInput(dt) {
 //update all the moving stuff
 function updateEntities(dt, gameTime) {
   player.update(dt, vX);
+
+var wowPositions = [1100, 1385, 2470];
+if (!window.wowTriggered) window.wowTriggered = [false, false, false];
+
+for (var i = 0; i < wowPositions.length; i++) {
+    if (!window.wowTriggered[i] && player.pos[0] > wowPositions[i]) {
+        new Audio('sounds/wow.wav').play();
+        window.wowTriggered[i] = true;
+    }
+}
+
+
   updateables.forEach (function(ent) {
     ent.update(dt, gameTime);
   });
@@ -234,24 +248,40 @@ function render() {
   level.pipes.forEach (function(pipe) {
     renderEntity(pipe);
   });
-// Licznik dystansu przebytego (w kafelkach/tiles)
-var dist = Math.floor(vX / 16);
-ctx.save();  // Zapisz stan ctx
-ctx.font = "bold 16px 'VT323', Fixedsys, 'Courier New', monospace";  // Mniejszy retro font (dopasuj 'VT323' lub 'Fixedsys')
-ctx.textAlign = "left";
-ctx.textBaseline = "top";
-ctx.shadowColor = "black";
-ctx.shadowBlur = 4;  // Cień dla lepszej widoczności
 
-// Cień (czarny)
-ctx.fillStyle = "black";
-ctx.fillText("DIST: " + dist.toString().padStart(6, "0"), 14, 14);
+	// Licznik dystansu przebytego (w kafelkach/tiles)
+	var dist = Math.floor(vX / 16);
+	var pixels = Math.floor(vX); // dystans w pikselach
+	ctx.save();  // Zapisz stan ctx
+	ctx.font = "bold 16px 'VT323', Fixedsys, 'Courier New', monospace";  // Mniejszy retro font (dopasuj 'VT323' lub 'Fixedsys')
+	ctx.textAlign = "left";
+	ctx.textBaseline = "top";
+	ctx.shadowColor = "black";
+	ctx.shadowBlur = 4;  // Cień dla lepszej widoczności
 
-// Główny tekst (biały)
-ctx.fillStyle = "white";
-ctx.fillText("DIST: " + dist.toString().padStart(6, "0"), 12, 12);
+	// Cień (czarny)
+	//ctx.fillStyle = "black";
+	//ctx.fillText("DIST: " + dist.toString().padStart(6, "0") + " PIX: " + pixels.toString().padStart(6, "0"), 14, 14);
 
-ctx.restore();  // Przywróć stan ctx
+	// Główny tekst (biały)
+	ctx.fillStyle = "white";
+	ctx.fillText("DIST: " + dist.toString().padStart(6, "0"), 12, 12);
+
+	ctx.restore();  // Przywróć stan ctx
+	
+	if (levelComplete) {
+    ctx.save();
+    ctx.font = "bold 38px monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    //ctx.shadowColor = "black";
+    //ctx.shadowBlur = 10;
+    //ctx.shadowOffsetX = 2;
+    //ctx.shadowOffsetY = 2;
+    ctx.fillStyle = "white";
+    ctx.fillText("GRATULACJE", 128, 120);
+    ctx.restore();
+}
 }
 
 function renderEntity(entity) {

@@ -248,9 +248,9 @@
 			}
 			this.dying -= 1 * dt;
 			if (this.dying <= 0) {
-				player = new Mario.Player(level.playerPos);
-				level.loader.call();
-				input.reset();
+				//player = new Mario.Player(level.playerPos);
+				//level.loader.call();
+				//input.reset();
 			}
 		}
 		else {
@@ -277,14 +277,17 @@
 			this.left = false;
 			this.flagging = false;
 			this.vel[0] = 1.5;
+			//this.noInput = true;
+			level.scrolling = false;
 			if (this.pos[0] >= this.targetPos[0]) {
-				this.sprite.size = [0,0];
+				levelComplete = true;
+				//this.sprite.size = [0,0]; // znikanie Mario na końcu levela
 				this.vel = [0,0];
 				window.setTimeout(function() {
 					player.sprite.size = player.power===0 ? [16,16] : [16,32];
 					player.exiting = false;
 					player.noInput = false;
-					level.loader();
+					//level.loader();
 					if (player.power !== 0) player.pos[1] -= 16;
 					music.overworld.currentTime = 0;
 				}, 5000);

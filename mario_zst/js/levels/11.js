@@ -64,10 +64,11 @@ var oneone = Mario.oneone = function() {
      new Mario.Sprite('sprites/items.png', [128, 32], [16,16], 0)
    ]
  });
-  ground = [[0,69],[71,86],[89,153],[155,212]];
+  ground = [[0,69],[71,86],[89,153],[155,214]];
   player.pos[0] = level.playerPos[0];
   player.pos[1] = level.playerPos[1];
   vX = 0;
+  //vX = 3100; // Ustawienie Mario na końcu levela
 
   //build THE GROUND
   ground.forEach(function(loc) {
@@ -117,24 +118,24 @@ var oneone = Mario.oneone = function() {
 
   //interactable terrain
 
-// Napis ZST z murków
-level.putWall(3, 3, 1); level.putWall(4, 3, 1); level.putWall(5, 3, 1);
-level.putWall(5, 4, 1);
-level.putWall(4, 5, 1);
-level.putWall(3, 6, 1);
-level.putWall(3, 7, 1); level.putWall(4, 7, 1); level.putWall(5, 7, 1);
+	// Napis ZST z murków
+	level.putWall(3, 3, 1); level.putWall(4, 3, 1); level.putWall(5, 3, 1);
+	level.putWall(5, 4, 1);
+	level.putWall(4, 5, 1);
+	level.putWall(3, 6, 1);
+	level.putWall(3, 7, 1); level.putWall(4, 7, 1); level.putWall(5, 7, 1);
 
-level.putWall(7, 3, 1); level.putWall(8, 3, 1); level.putWall(9, 3, 1);
-level.putWall(7, 4, 1);
-level.putWall(7, 5, 1); level.putWall(8, 5, 1); level.putWall(9, 5, 1);
-level.putWall(9, 6, 1);
-level.putWall(7, 7, 1); level.putWall(8, 7, 1); level.putWall(9, 7, 1);
+	level.putWall(7, 3, 1); level.putWall(8, 3, 1); level.putWall(9, 3, 1);
+	level.putWall(7, 4, 1);
+	level.putWall(7, 5, 1); level.putWall(8, 5, 1); level.putWall(9, 5, 1);
+	level.putWall(9, 6, 1);
+	level.putWall(7, 7, 1); level.putWall(8, 7, 1); level.putWall(9, 7, 1);
 
-level.putWall(11, 3, 1); level.putWall(12, 3, 1); level.putWall(13, 3, 1);
-level.putWall(12, 4, 1);
-level.putWall(12, 5, 1);
-level.putWall(12, 6, 1);
-level.putWall(12, 7, 1);
+	level.putWall(11, 3, 1); level.putWall(12, 3, 1); level.putWall(13, 3, 1);
+	level.putWall(12, 4, 1);
+	level.putWall(12, 5, 1);
+	level.putWall(12, 6, 1);
+	level.putWall(12, 7, 1);
 
   level.putQBlock(16, 9, new Mario.Bcoin([256, 144]));
   level.putBrick(20, 9, null);
@@ -232,7 +233,8 @@ level.putWall(12, 7, 1);
   level.putGoomba(170, 12);
   level.putGoomba(172, 12);
   level.putKoopa(35, 11);
-
+	level.putWall(214, 14, 10);
+	
   music.underground.pause();
   // music.overworld.currentTime = 0;
   music.overworld.play();
