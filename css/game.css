@@ -3,7 +3,8 @@ html, body, ul, li {
   margin: 0;
   border: 0;
   padding: 0;
-	background-color: #404040;
+  background-color: #404040;
+  color: #555555;
 }
 
 canvas {
